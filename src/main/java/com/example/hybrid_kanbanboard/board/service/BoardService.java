@@ -6,6 +6,8 @@ import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.board.repository.BoardRepository;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.user.entity.User;
+import com.example.hybrid_kanbanboard.userBoard.UserBoard;
+import com.example.hybrid_kanbanboard.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +20,20 @@ import java.util.concurrent.RejectedExecutionException;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final UserBoardRepository userBoardRepository;
 
     // 보드 생성
+    @Transactional
     public BoardResponseDto createBoard(BoardRequestDto requestDto, User user) {
-        Board board = boardRepository.save(new Board(requestDto, user));
+        UserRoleEnum role = UserRoleEnum.ADMIN;
+        Board board = boardRepository.save(new Board(requestDto, user, role));
+        UserBoard userBoard = new UserBoard(user, board);
+        userBoardRepository.save(userBoard);
         return new BoardResponseDto(board);
     }
 
     // 보드 조회
+    @Transactional(readOnly = true)
     public List<BoardResponseDto> getBoard() {
         return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
     }
@@ -34,7 +42,7 @@ public class BoardService {
     public BoardResponseDto getBoardCol(Long BoardId) {
         Board board = boardRepository.findById(BoardId).orElseThrow(() ->
                 new IllegalArgumentException("선택한 보드가 존재하지 않습니다."));
-                return new BoardResponseDto(board);
+        return new BoardResponseDto(board);
     }
 
     // 특정 보드 조회
@@ -76,5 +84,20 @@ public class BoardService {
             responseDtoList.add(new BoardResponseDto(board));
         }
         return responseDtoList;
+    }
+
+    @Transactional
+    public void addCollaborator(Board board, User collaborator) {
+        if (board.getUserBoards().stream().anyMatch(boardUser -> boardUser.getCollaborator().equals(collaborator))) {
+            throw new IllegalArgumentException("이미 등록된 멤버입니다");
+        }
+        UserBoard userBoard = userBoardRepository.save(new UserBoard(collaborator,board));
+        board.getUserBoards().add(userBoard);
+
+    }
+
+    public UserBoard findCollaborator(Long userId) {
+        return userBoardRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 board에 존재하지 않는 사용자입니다."));
     }
 }

@@ -42,4 +42,10 @@ public class UserController {
 
         return ResponseEntity.ok().body(new MsgResponseDto("프로필 수정 성공", HttpStatus.CREATED.value()));
     }
+//사용안함
+//    @PostMapping("/signupboard")
+//    public ResponseEntity<MsgResponseDto> signupBoard(@RequestBody SignUpRequestDto requestDto) {
+//        userService.signupBoard(requestDto);
+//        return ResponseEntity.ok().body(new MsgResponseDto("보드 가입 성공",HttpStatus.OK.value()));
+//    }
 }
