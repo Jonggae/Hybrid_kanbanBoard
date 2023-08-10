@@ -111,4 +111,8 @@ public class UserService {
 
         return profileUpdateDto;
     }
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
+    }
 }
