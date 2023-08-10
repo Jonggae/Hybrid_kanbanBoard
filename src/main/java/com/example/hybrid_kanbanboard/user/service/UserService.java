@@ -41,7 +41,16 @@ public class UserService {
         User user = new User(userName, password, email, nickname, role);
         userRepository.save(user);
     }
-
+    // 보드에 사용자 초대하기 * 보드 생성자만 초대 가능하다...
     public void signupBoard(SignUpRequestDto requestDto) {
+        String userName = requestDto.getUserName();
+        User user = new User(userName);
+
+
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
     }
 }
