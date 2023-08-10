@@ -1,6 +1,7 @@
 package com.example.hybrid_kanbanboard.board.entity;
 
 import com.example.hybrid_kanbanboard.board.dto.BoardRequestDto;
+import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import com.example.hybrid_kanbanboard.userBoard.UserBoard;
@@ -40,7 +41,7 @@ public class Board {
     List<UserBoard> userBoards = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<com.example.hybrid_kanbanboard.column.entity.Column> columnList = new ArrayList<>();
+    private List<Columns> columnList = new ArrayList<>();
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
@@ -61,7 +62,7 @@ public class Board {
         this.role = role;
     }
 
-    public void addColumnList(com.example.hybrid_kanbanboard.column.entity.Column column) {
+    public void addColumnList(Columns column) {
         this.columnList.add(column);
         column.setBoard(this);
     }

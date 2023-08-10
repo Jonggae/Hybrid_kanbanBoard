@@ -29,7 +29,7 @@ public class ColumnsService {
         Columns column = columnsRepository.save(new Columns(requestDto, user, board));
 
         board.addColumnList(column);
-        List<Columns> colList = board.getColumnsList();
+        List<Columns> colList = board.getColumnList();
         for (Columns c : colList) {
             System.out.println("Column = " + c.getColumnName());
         }
@@ -46,7 +46,7 @@ public class ColumnsService {
             throw new RejectedExecutionException();
         } else
             columnsRepository.deleteById(ColumnId);
-        List<Columns> columnList = board.getColumnsList();
+        List<Columns> columnList = board.getColumnList();
         columnList.removeIf(c -> c.getColumnId() == ColumnId); // equal 을 써야하나?
 
         for (Columns c : columnList) {
@@ -62,7 +62,7 @@ public class ColumnsService {
         Columns column = findColumns(ColumnId);
 
         if (username.equals(user.getUserName())|| user.getRole().toString().equals("ADMIN")) {
-            List<Columns> columnList = board.getColumnsList();
+            List<Columns> columnList = board.getColumnList();
             column.update(requestDto);
             return new ColumnsResponseDto(column);
         } else {
