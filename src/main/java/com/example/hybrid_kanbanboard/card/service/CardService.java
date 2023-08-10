@@ -4,7 +4,6 @@ import com.example.hybrid_kanbanboard.board.service.BoardService;
 import com.example.hybrid_kanbanboard.card.dto.*;
 import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.card.repository.CardRepository;
-import com.example.hybrid_kanbanboard.carduser.repository.CardUserRepository;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.columns.repository.ColumnsRepository;
 import com.example.hybrid_kanbanboard.columns.service.ColumnsService;
@@ -21,12 +20,7 @@ import java.util.concurrent.RejectedExecutionException;
 @RequiredArgsConstructor
 public class CardService {
     private final CardRepository cardRepository;
-    private final ColumnsRepository columnsRepository;
-    private final CardUserRepository cardUserRepository;
-    private final UserRepository userRepository;
     private final ColumnsService columnsService;
-    private final BoardService boardService;
-
 
 
 
