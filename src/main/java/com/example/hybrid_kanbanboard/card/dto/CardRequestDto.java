@@ -3,6 +3,8 @@ package com.example.hybrid_kanbanboard.card.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class CardRequestDto {
@@ -10,5 +12,5 @@ public class CardRequestDto {
     private String description;
     private String color;
     private String position;
-    private String dueDate;
+    private LocalDateTime dueDate;
 }
