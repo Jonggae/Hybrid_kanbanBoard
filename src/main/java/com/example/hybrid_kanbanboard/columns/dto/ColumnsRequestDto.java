@@ -1,11 +1,11 @@
-package com.example.hybrid_kanbanboard.column.dto;
+package com.example.hybrid_kanbanboard.columns.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ColumnRequestDto {
+public class ColumnsRequestDto {
 
     private String columnName;
     private Long columnPosition;

@@ -1,12 +1,16 @@
-package com.example.hybrid_kanbanboard.column.entity;
+package com.example.hybrid_kanbanboard.columns.entity;
 
 import com.example.hybrid_kanbanboard.board.entity.Board;
-import com.example.hybrid_kanbanboard.column.dto.ColumnRequestDto;
+import com.example.hybrid_kanbanboard.card.entity.Card;
+import com.example.hybrid_kanbanboard.columns.dto.ColumnsRequestDto;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +18,7 @@ import lombok.Setter;
 @Table(name = "columns")
 @NoArgsConstructor
 
-public class Column {
+public class Columns {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +38,17 @@ public class Column {
     @JoinColumn(name= "boardNumber")
     private Board board;
 
-    public Column(ColumnRequestDto requestDto, User user, Board board) {
+    @OneToMany(mappedBy = "columns")
+    private List<Card> cardList = new ArrayList<>();
+
+    public Columns(ColumnsRequestDto requestDto, User user, Board board) {
         this.columnName =requestDto.getColumnName();
         this.columnPosition = requestDto.getColumnPosition();
         this.user = user;
         this.board = board;
     }
 
-    public void update(ColumnRequestDto requestDto) {
+    public void update(ColumnsRequestDto requestDto) {
         this.columnName = requestDto.getColumnName();
         this.columnPosition = requestDto.getColumnPosition();
     }
