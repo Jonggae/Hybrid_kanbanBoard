@@ -1,7 +1,7 @@
 package com.example.hybrid_kanbanboard.board.entity;
 
 import com.example.hybrid_kanbanboard.board.dto.BoardRequestDto;
-import com.example.hybrid_kanbanboard.column.entity.Columns;
+import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -46,8 +46,8 @@ public class Board {
         this.description = requestDto.getDescription();
     }
 
-    public void addColumnList(Columns columns) {
-        this.columnsList.add(columns);
-        columns.setBoard(this);
+    public void addColumnList(Columns column) {
+        this.columnsList.add(column);
+        column.setBoard(this);
     }
 }
