@@ -1,6 +1,7 @@
 package com.example.hybrid_kanbanboard.check.entity;
 
 import com.example.hybrid_kanbanboard.check.dto.CheckRequestDto;
+import com.example.hybrid_kanbanboard.user.entity.TimeStamped;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,10 +10,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Check {
+@Table(name = "checks")
+public class Check extends TimeStamped {
     @Id
-    @GeneratedValue
-    private Long CheckId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long checkId;
 
     @Column
     private String title;
@@ -22,7 +24,7 @@ public class Check {
 //    private Card card;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
 

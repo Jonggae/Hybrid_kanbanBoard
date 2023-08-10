@@ -2,6 +2,7 @@ package com.example.hybrid_kanbanboard.checkList.entity;
 
 import com.example.hybrid_kanbanboard.check.entity.Check;
 import com.example.hybrid_kanbanboard.checkList.dto.CheckListRequestDto;
+import com.example.hybrid_kanbanboard.user.entity.TimeStamped;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class CheckList {
+public class CheckList extends TimeStamped {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long checkListId;
 
     @Column
@@ -25,7 +26,7 @@ public class CheckList {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "checkId")
+    @JoinColumn(name = "check_id")
     private Check check;
 
     public CheckList(CheckListRequestDto checkListRequestDto) {
