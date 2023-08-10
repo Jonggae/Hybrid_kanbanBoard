@@ -23,4 +23,10 @@ public class UserController {
             userService.signup(requestDto);
             return ResponseEntity.ok().body(new MsgResponseDto("회원가입 성공", HttpStatus.OK.value()));
     }
+
+    @PostMapping("/signupboard")
+    public ResponseEntity<MsgResponseDto> signupBoard(@RequestBody SignUpRequestDto requestDto) {
+        userService.signupBoard(requestDto);
+        return ResponseEntity.ok().body(new MsgResponseDto("보드 가입 성공",HttpStatus.OK.value()));
+    }
 }

@@ -41,4 +41,7 @@ public class UserService {
         User user = new User(userName, password, email, nickname, role);
         userRepository.save(user);
     }
+
+    public void signupBoard(SignUpRequestDto requestDto) {
+    }
 }
