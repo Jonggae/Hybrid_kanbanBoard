@@ -14,7 +14,7 @@ public class CardResponseDto extends MsgResponseDto {
     private String description;
     private String color;
     private String position;
-    private String dueDate;
+    private LocalDateTime dueDate;
 //    private LocalDateTime createAt;
 //    private LocalDateTime modifiedAt;
     public CardResponseDto(Card card) {
