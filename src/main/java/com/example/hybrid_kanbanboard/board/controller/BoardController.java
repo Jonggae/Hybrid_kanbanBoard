@@ -75,7 +75,7 @@ public class BoardController {
     }
 
     //보드에 사용자 초대
-    @PostMapping("/board/collaborator/BoardId}")
+    @PostMapping("/board/collaborator/{BoardId}")
     public ResponseEntity<MsgResponseDto> addCollaborator(@PathVariable Long BoardId, @RequestBody CollaboratorRequestDto collaboratorRequestDto) {
         Board board = boardService.findBoard(BoardId);
 
