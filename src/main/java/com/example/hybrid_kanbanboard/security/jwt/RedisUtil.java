@@ -25,6 +25,7 @@ public class RedisUtil {
         return Boolean.TRUE.equals(redisTemplate.hasKey(key));
     }
 
+    // 이메일 인증 코드 전송
     public void setDataExpire(String key, String value, long duration) {
         //  duration 동안 (key, value)를 저장한다.
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
@@ -37,5 +38,21 @@ public class RedisUtil {
     public void deleteData(String key) {
         // 데이터 삭제
         redisTemplate.delete(key);
+    }
+
+    public void save(String key, String value, long duration) {
+        //  duration 동안 (key, value)를 저장한다.
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        Duration expireDuration = Duration.ofSeconds(duration);
+
+        // 인증 코드 값을 value에 저장
+        valueOperations.set(key, value, expireDuration);
+    }
+
+    // redis에서 getEmail을 꺼내서 사용
+    public String getEmail(String key) { // key를 통해 value(데이터)를 얻는다.
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        log.info("key : " + key);
+        return valueOperations.get(key);
     }
 }

@@ -11,6 +11,7 @@ public class CheckListResponseDto {
     private boolean isCompleted;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
     public CheckListResponseDto(CheckList checkList) {
         this.description = checkList.getDescription();
         this.isCompleted = checkList.isCompleted();

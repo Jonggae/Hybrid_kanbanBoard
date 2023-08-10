@@ -2,20 +2,23 @@ package com.example.hybrid_kanbanboard.user.dto;
 
 import com.example.hybrid_kanbanboard.user.entity.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserResponseDto {
-    private String userName;
+@NoArgsConstructor
+public class ProfileUpdateDto {
     private String email;
+    private String password;
+    private String changePassword;
     private String nickname;
     private String myContent;
 
-    public UserResponseDto(User user) {
-        this.userName = user.getUserName();
+    public ProfileUpdateDto(User user) {
         this.email = user.getEmail();
-        this.nickname = user.getNickname();
+        this.password = user.getPassword();
+        this.nickname= user.getNickname();
         this.myContent = user.getMyContent();
     }
 }

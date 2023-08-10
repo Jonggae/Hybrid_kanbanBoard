@@ -52,13 +52,13 @@ public class CheckListController {
         return ResponseEntity.ok().body(new MsgResponseDto("체크리스트 삭제 성공 !", HttpStatus.OK.value()));
     }
 
-    @PutMapping("/completed/{checkListId}")
+    @PutMapping("/complated/{checkListId}")
     public ResponseEntity<MsgResponseDto> completed(@PathVariable Long checkListId) {
         checkListService.completed(checkListId);
         return ResponseEntity.ok().body(new MsgResponseDto("체크리스트를 완료로 변경했습니다.", HttpStatus.OK.value()));
     }
 
-    @PutMapping("/notexecuted/{checkListId}")
+    @PutMapping("/notexcuted/{checkListId}")
     public ResponseEntity<MsgResponseDto> notExecuted(@PathVariable Long checkListId) {
         checkListService.notExecuted(checkListId);
         return ResponseEntity.ok().body(new MsgResponseDto("체크리스트를 미실행으로 변경했습니다.", HttpStatus.OK.value()));
