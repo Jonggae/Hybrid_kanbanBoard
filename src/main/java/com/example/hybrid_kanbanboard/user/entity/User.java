@@ -36,6 +36,9 @@ public class User {
     @OneToMany(mappedBy = "collaborator", orphanRemoval = true)
     private List<UserBoard> boardUser = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "maker",orphanRemoval = true)
+//    private List<Board> boardList = new ArrayList<>();
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;

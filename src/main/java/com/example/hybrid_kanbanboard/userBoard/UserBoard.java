@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -21,7 +21,7 @@ public class UserBoard {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "",nullable = false)
+    @JoinColumn(name = "collaborator_id",nullable = false)
     private User collaborator;
 
     @ManyToOne(fetch = FetchType.LAZY)

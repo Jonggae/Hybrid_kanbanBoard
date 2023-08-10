@@ -23,6 +23,7 @@ public class BoardService {
     private final UserBoardRepository userBoardRepository;
 
     // 보드 생성
+    @Transactional
     public BoardResponseDto createBoard(BoardRequestDto requestDto, User user) {
         UserRoleEnum role = UserRoleEnum.ADMIN;
         Board board = boardRepository.save(new Board(requestDto, user, role));
@@ -32,6 +33,7 @@ public class BoardService {
     }
 
     // 보드 조회
+    @Transactional(readOnly = true)
     public List<BoardResponseDto> getBoard() {
         return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
     }
@@ -84,11 +86,12 @@ public class BoardService {
         return responseDtoList;
     }
 
+    @Transactional
     public void addCollaborator(Board board, User collaborator) {
         if (board.getUserBoards().stream().anyMatch(boardUser -> boardUser.getCollaborator().equals(collaborator))) {
             throw new IllegalArgumentException("이미 등록된 멤버입니다");
         }
-        UserBoard userBoard = new UserBoard(collaborator, board);
+        UserBoard userBoard = userBoardRepository.save(new UserBoard(collaborator,board));
         board.getUserBoards().add(userBoard);
 
     }
