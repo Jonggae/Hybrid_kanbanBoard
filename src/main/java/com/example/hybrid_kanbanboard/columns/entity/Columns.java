@@ -38,7 +38,7 @@ public class Columns {
     @JoinColumn(name= "boardNumber")
     private Board board;
 
-    @OneToMany(mappedBy = "colimns")
+    @OneToMany(mappedBy = "columns")
     private List<Card> cards = new ArrayList<>();
 
     public Columns(ColumnsRequestDto requestDto, User user, Board board) {
