@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/{cardId}/comment")
+@RequestMapping("/comment")
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/")
+    @PostMapping("/{cardId}")
     public ResponseEntity<MsgResponseDto> createComment(@PathVariable Long cardId , @AuthenticationPrincipal UserDetailsImpl userDetails , @RequestBody CommentRequestDto commentRequestDto) {
         commentService.createComment(cardId,userDetails.getUser(),commentRequestDto);
         return ResponseEntity.ok().body(new MsgResponseDto("댓글 생성 성공 !", HttpStatus.OK.value()));
