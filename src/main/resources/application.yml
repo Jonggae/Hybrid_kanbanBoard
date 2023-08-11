@@ -1,6 +1,6 @@
 AdminMail:
-  password: 'heehee010010'
-  id: 'tloczqagzdglypsh'
+  id: 'heehee010010'
+  password: 'tloczqagzdglypsh'
 
 spring:
   jpa:
@@ -13,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    password: '1234'
+    password: 'Rhqnr9563**'
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     url: jdbc:mysql://localhost:3306/hybrid
@@ -45,12 +45,12 @@ jwt:
 cloud:
   aws:
     s3:
-      bucket:
+      bucket: 'myawsbuketlist'
     credentials:
-      access-key:
-      secret-key:
+      access-key: 'AKIA4C3UUZS5CH6BMZM5'
+      secret-key: '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'
     region:
-      static:
+      static: 'ap-northeast-2'
       auto: false
     stack:
       auto: false
