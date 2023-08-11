@@ -45,6 +45,7 @@ public class EmailServiceImpl implements EmailService {
         if (codeFindByEmail == null) {
             return false;
         }
+        redisUtil.save("success", email, 60 * 50L);
         return redisUtil.getData(email).equals(verificationCode);
     }
 

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 public class CheckResponseDto {
     private String title;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;
