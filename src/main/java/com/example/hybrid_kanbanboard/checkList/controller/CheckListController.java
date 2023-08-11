@@ -61,6 +61,6 @@ public class CheckListController {
     @PutMapping("/{checkListId}/notexcuted")
     public ResponseEntity<MsgResponseDto> notExecuted(@PathVariable Long checkListId) {
         checkListService.notExecuted(checkListId);
-        return ResponseEntity.ok().body(new MsgResponseDto("체크리스트를 미실행으로 변경했습니다.", HttpStatus.OK.value()));
+        return ResponseEntity.ok().body(new MsgResponseDto("체크리스트를 미완료으로 변경했습니다.", HttpStatus.OK.value()));
     }
 }
