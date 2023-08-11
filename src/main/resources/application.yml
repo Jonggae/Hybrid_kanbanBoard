@@ -1,6 +1,6 @@
 AdminMail:
-  password: ''
-  id: ''
+  password: 'heehee010010'
+  id: 'tloczqagzdglypsh'
 
 spring:
   jpa:
