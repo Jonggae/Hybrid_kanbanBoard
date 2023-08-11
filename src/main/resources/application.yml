@@ -45,12 +45,12 @@ jwt:
 cloud:
   aws:
     s3:
-      bucket: 'myawsbuketlist'
+      bucket: 
     credentials:
-      access-key: 'AKIA4C3UUZS5CH6BMZM5'
-      secret-key: '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'
+      access-key: 
+      secret-key: 
     region:
-      static: 'ap-northeast-2'
+      static: 
       auto: false
     stack:
       auto: false
