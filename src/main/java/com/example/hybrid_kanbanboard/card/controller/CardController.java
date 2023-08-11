@@ -30,6 +30,18 @@ public class CardController {
         return ResponseEntity.ok().body(new MsgResponseDto("카드 생성 성공!", HttpStatus.OK.value()));
     }
 
+
+    // 카드 이름 수정
+    @PutMapping("cards/{cardId}/name")
+    public ResponseEntity<MsgResponseDto> updateName(@AuthenticationPrincipal UserDetailsImpl userDetails,
+                                                     @PathVariable Long cardId,
+                                                     @RequestBody NameRequestDto requestDto) {
+        cardService.updateName(cardId, requestDto, userDetails.getUser());
+
+        return ResponseEntity.ok().body(new MsgResponseDto("카드 이름 수정 성공!", HttpStatus.OK.value()));
+
+    }
+
     // 카드 설명 수정
     @PutMapping("cards/{cardId}/description")
     public ResponseEntity<MsgResponseDto> updateDescription(@AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -37,7 +49,7 @@ public class CardController {
                                                             @RequestBody DescriptionRequestDto requestDto) {
         cardService.updateDescription(cardId, requestDto, userDetails.getUser());
 
-        return ResponseEntity.ok().body(new MsgResponseDto("카드 제목 수정 성공!", HttpStatus.OK.value()));
+        return ResponseEntity.ok().body(new MsgResponseDto("카드 설명 수정 성공!", HttpStatus.OK.value()));
     }
     // 카드 색상 수정
     @PutMapping("cards/{cardId}/color")
@@ -46,7 +58,7 @@ public class CardController {
                                                       @RequestBody ColorRequestDto requestDto) {
         cardService.updateColor(cardId, requestDto, userDetails.getUser());
 
-        return ResponseEntity.ok().body(new MsgResponseDto("카드 생성 성공!", HttpStatus.OK.value()));
+        return ResponseEntity.ok().body(new MsgResponseDto("카드 색상 수정 성공!", HttpStatus.OK.value()));
     }
     // 카드 만기일 수정
     @PutMapping("cards/{cardId}/due")
@@ -55,7 +67,7 @@ public class CardController {
                                                         @RequestBody DueDateRequestDto requestDto) {
         cardService.updateDueDate(cardId, requestDto, userDetails.getUser());
 
-        return ResponseEntity.ok().body(new MsgResponseDto("카드 생성 성공!", HttpStatus.OK.value()));
+        return ResponseEntity.ok().body(new MsgResponseDto("카드 만기일 수정 성공!", HttpStatus.OK.value()));
 
     }
 
@@ -80,7 +92,4 @@ public class CardController {
         cardService.reorderCard(cardId, columnsId, reorderRequestDto);
         return ResponseEntity.ok().build();
     }
-
-
-
 }

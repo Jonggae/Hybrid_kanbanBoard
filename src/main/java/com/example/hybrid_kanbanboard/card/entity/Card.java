@@ -40,7 +40,6 @@ public class Card extends TimeStamped {
     @Column
     private LocalDateTime dueDate;
 
-    // 수정해야댐~~~
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

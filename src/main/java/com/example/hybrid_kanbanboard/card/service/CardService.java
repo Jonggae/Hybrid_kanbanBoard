@@ -88,14 +88,6 @@ public class CardService {
     }
 
 
-    public Card findCard(Long id) {
-        return cardRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
-        );
-    }
-
-
-
     // 카드 이동
     public void reorderCard(Long cardId, Long columnsId, CardReorderRequestDto reorderRequestDto) {
         Card card = findCard(cardId);
@@ -129,6 +121,14 @@ public class CardService {
 
             cardRepository.save(card);
         }
+    }
+
+
+
+    public Card findCard(Long id) {
+        return cardRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
+        );
     }
 
 }
