@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/hybrid/**").permitAll()//
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
