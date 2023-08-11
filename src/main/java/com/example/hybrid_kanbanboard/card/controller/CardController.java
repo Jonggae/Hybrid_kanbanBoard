@@ -22,9 +22,9 @@ public class CardController {
 
     private final CardService cardService;
 
-    @PostMapping(value = "/v1/character/{columnId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<MsgResponseDto> createCard(@PathVariable Long columnId ,@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestPart CardRequestDto requestDto ,
-                                                     @RequestPart MultipartFile multipartFile) throws IOException {
+    @PostMapping(value = "/{columnId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<MsgResponseDto> createCard(@PathVariable Long columnId ,@AuthenticationPrincipal UserDetailsImpl userDetails,
+                                                     @RequestPart CardRequestDto requestDto , @RequestPart MultipartFile multipartFile) throws IOException {
         cardService.createCard(requestDto, userDetails.getUser(),multipartFile,columnId);
 
         return ResponseEntity.ok().body(new MsgResponseDto("카드 생성 성공!", HttpStatus.OK.value()));
