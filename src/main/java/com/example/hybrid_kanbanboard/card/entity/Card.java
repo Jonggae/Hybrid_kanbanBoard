@@ -35,7 +35,7 @@ public class Card extends TimeStamped {
     private String color;
 
     @Column
-    private String position;
+    private Long position;
 
     @Column
     private LocalDateTime dueDate;

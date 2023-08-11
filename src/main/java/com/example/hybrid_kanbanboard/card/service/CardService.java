@@ -93,4 +93,42 @@ public class CardService {
                 new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
         );
     }
+
+
+
+    // 카드 이동
+    public void reorderCard(Long cardId, Long columnsId, CardReorderRequestDto reorderRequestDto) {
+        Card card = findCard(cardId);
+
+        Columns columns = card.getColumns();
+        Long oldPosition = card.getPosition();
+        Long newPosition = reorderRequestDto.getPosition();
+
+        if (columns.getColumnId().equals(columnsId)) {
+
+            if (newPosition > oldPosition) {
+                cardRepository.decrementAboveToPosition(newPosition, oldPosition,
+                        String.valueOf(columns.getColumnId()));
+            } else {
+                cardRepository.incrementBelowToPosition(newPosition, oldPosition,
+                        String.valueOf(columns.getColumnId()));
+            }
+
+            card.setPosition(reorderRequestDto.getPosition());
+            cardRepository.save(card);
+
+        } else {
+
+            Columns requestcolumns = columnsService.findColumns(columnsId);
+
+            cardRepository.decrementBelow(card.getPosition(), String.valueOf(columns.getColumnId()));
+
+            Long position = cardRepository.countCardsByColumns(requestcolumns);
+            card.setPosition(position);
+            card.setColumns(requestcolumns);
+
+            cardRepository.save(card);
+        }
+    }
+
 }

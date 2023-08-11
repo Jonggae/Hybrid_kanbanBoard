@@ -11,6 +11,6 @@ public class CardRequestDto {
     private String name;
     private String description;
     private String color;
-    private String position;
+    private Long position;
     private LocalDateTime dueDate;
 }

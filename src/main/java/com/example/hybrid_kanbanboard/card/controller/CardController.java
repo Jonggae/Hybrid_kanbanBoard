@@ -72,6 +72,14 @@ public class CardController {
     }
 
 
+    // 카드 이동
+    @PutMapping("/cards/{cardId}/reorder")
+    public ResponseEntity<Void> reorderCard(@PathVariable Long cardId,
+                                            @RequestParam(required = false) Long columnsId,
+                                            @RequestBody CardReorderRequestDto reorderRequestDto) {
+        cardService.reorderCard(cardId, columnsId, reorderRequestDto);
+        return ResponseEntity.ok().build();
+    }
 
 
 

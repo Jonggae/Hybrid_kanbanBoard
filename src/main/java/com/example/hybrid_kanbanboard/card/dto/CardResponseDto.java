@@ -13,15 +13,17 @@ public class CardResponseDto extends MsgResponseDto {
     private String name;
     private String description;
     private String color;
-    private String position;
+    private Long position;
     private LocalDateTime dueDate;
-//    private LocalDateTime createAt;
-//    private LocalDateTime modifiedAt;
+    private LocalDateTime createAt;
+    private LocalDateTime modifiedAt;
     public CardResponseDto(Card card) {
         this.name = card.getName();
         this.description = card.getDescription();
         this.color = card.getColor();
         this.position = card.getPosition();
         this.dueDate = card.getDueDate();
+        this.createAt = card.getCreatedAt();
+        this.modifiedAt = card.getModifiedAt();
     }
 }
