@@ -1,8 +1,9 @@
 package com.example.hybrid_kanbanboard.card.entity;
 
-import com.example.hybrid_kanbanboard.card.dto.CardRequestDto;
+import com.example.hybrid_kanbanboard.card.dto.*;
 import com.example.hybrid_kanbanboard.check.entity.Check;
-import com.example.hybrid_kanbanboard.column.entity.Columns;
+import com.example.hybrid_kanbanboard.columns.entity.Columns;
+import com.example.hybrid_kanbanboard.comment.entity.Comment;
 import com.example.hybrid_kanbanboard.user.entity.TimeStamped;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -36,7 +38,7 @@ public class Card extends TimeStamped {
     private String position;
 
     @Column
-    private String dueDate;
+    private LocalDateTime dueDate;
 
     // 수정해야댐~~~
     @ManyToOne
@@ -63,15 +65,6 @@ public class Card extends TimeStamped {
 
     }
 
-    public Card update(CardRequestDto requestDto) {
-        this.name = requestDto.getName();
-        this.description = requestDto.getDescription();
-        this.color = requestDto.getColor();
-        this.position = requestDto.getPosition();
-        this.dueDate = requestDto.getDueDate();
-
-        return this;
-    }
 
     public void updateName(NameRequestDto requestDto) {
         this.name = requestDto.getName();
@@ -92,5 +85,10 @@ public class Card extends TimeStamped {
     public void addComments(Comment comment) {
         this.comments.add(comment);
         comment.setCard(this);
+    }
+
+    public void addCheck(Check check) {
+        this.checkList.add(check);
+        check.setCard(this);
     }
 }

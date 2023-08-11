@@ -1,16 +1,18 @@
 package com.example.hybrid_kanbanboard.card.controller;
 
-import com.example.hybrid_kanbanboard.card.dto.CardRequestDto;
-import com.example.hybrid_kanbanboard.card.dto.CardResponseDto;
+import com.example.hybrid_kanbanboard.card.dto.*;
 import com.example.hybrid_kanbanboard.card.service.CardService;
 import com.example.hybrid_kanbanboard.security.jwt.UserDetailsImpl;
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.concurrent.RejectedExecutionException;
 
 @RestController
@@ -20,10 +22,10 @@ public class CardController {
 
     private final CardService cardService;
 
-    @PostMapping(value = "/v1/character", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<MsgResponseDto> createCard(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                                     @RequestPart CardRequestDto requestDto ,@RequestPart MultipartFile multipartFile) throws IOException {
-        cardService.createCard(requestDto, userDetails.getUser(),multipartFile);
+    @PostMapping(value = "/v1/character/{columnId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<MsgResponseDto> createCard(@PathVariable Long columnId ,@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestPart CardRequestDto requestDto ,
+                                                     @RequestPart MultipartFile multipartFile) throws IOException {
+        cardService.createCard(requestDto, userDetails.getUser(),multipartFile,columnId);
 
         return ResponseEntity.ok().body(new MsgResponseDto("카드 생성 성공!", HttpStatus.OK.value()));
     }
