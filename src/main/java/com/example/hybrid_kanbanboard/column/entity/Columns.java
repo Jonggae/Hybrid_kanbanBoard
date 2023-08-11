@@ -1,12 +1,15 @@
 package com.example.hybrid_kanbanboard.column.entity;
 
 import com.example.hybrid_kanbanboard.board.entity.Board;
+import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.column.dto.ColumnRequestDto;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +37,9 @@ public class Columns {
     @JoinColumn(name= "boardNumber")
     private Board board;
 
+    @OneToMany(mappedBy = "colimns")
+    private List<Card> cards;
+
     public Columns(ColumnRequestDto requestDto, User user, Board board) {
         this.columnName =requestDto.getColumnName();
         this.columnPosition = requestDto.getColumnPosition();
@@ -44,5 +50,10 @@ public class Columns {
     public void update(ColumnRequestDto requestDto) {
         this.columnName = requestDto.getColumnName();
         this.columnPosition = requestDto.getColumnPosition();
+    }
+
+    public void addCards(Card card) {
+        this.cards.add(card);
+        card.setColumns(this);
     }
 }

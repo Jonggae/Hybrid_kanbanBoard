@@ -3,6 +3,7 @@ package com.example.hybrid_kanbanboard.card.entity;
 import com.example.hybrid_kanbanboard.card.dto.CardRequestDto;
 import com.example.hybrid_kanbanboard.check.entity.Check;
 import com.example.hybrid_kanbanboard.column.entity.Columns;
+import com.example.hybrid_kanbanboard.comment.entity.Comment;
 import com.example.hybrid_kanbanboard.user.entity.TimeStamped;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
@@ -50,7 +51,11 @@ public class Card extends TimeStamped {
     @OneToMany(mappedBy = "card")
     private List<Check> checkList;
 
-    public Card(CardRequestDto requestDto) {
+    @OneToMany(mappedBy = "card")
+    private List<Comment> comments;
+
+    public Card(CardRequestDto requestDto,User user) {
+        this.user = user;
         this.name = requestDto.getName();
         this.description = requestDto.getDescription();
         this.color = requestDto.getColor();
@@ -72,5 +77,10 @@ public class Card extends TimeStamped {
     public void addCheck(Check check) {
         this.checkList.add(check);
         check.setCard(this);
+    }
+
+    public void addComments(Comment comment) {
+        this.comments.add(comment);
+        comment.setCard(this);
     }
 }

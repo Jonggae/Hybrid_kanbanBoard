@@ -6,24 +6,29 @@ import com.example.hybrid_kanbanboard.card.service.CardService;
 import com.example.hybrid_kanbanboard.security.jwt.UserDetailsImpl;
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.concurrent.RejectedExecutionException;
 
 @RestController
 @RequestMapping("/api/card")
 @RequiredArgsConstructor
+@Slf4j
 public class CardController {
 
     private final CardService cardService;
 
-    @PostMapping("/")
+    @PostMapping(value = "/v1/character", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<MsgResponseDto> createCard(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                                                     @RequestBody CardRequestDto requestDto) {
-        cardService.createCard(requestDto, userDetails.getUser());
+                                                     @RequestPart CardRequestDto requestDto ,@RequestPart MultipartFile multipartFile) throws IOException {
+        cardService.createCard(requestDto, userDetails.getUser(),multipartFile);
 
         return ResponseEntity.ok().body(new MsgResponseDto("카드 생성 성공!", HttpStatus.OK.value()));
     }

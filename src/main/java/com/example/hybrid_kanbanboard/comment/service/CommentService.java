@@ -1,5 +1,7 @@
 package com.example.hybrid_kanbanboard.comment.service;
 
+import com.example.hybrid_kanbanboard.card.entity.Card;
+import com.example.hybrid_kanbanboard.card.service.CardService;
 import com.example.hybrid_kanbanboard.comment.dto.CommentListResponseDto;
 import com.example.hybrid_kanbanboard.comment.dto.CommentRequestDto;
 import com.example.hybrid_kanbanboard.comment.dto.CommentResponseDto;
@@ -17,17 +19,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-//    private final CardRepository cardRepository;
+    private final CardService cardService;
 
     @Transactional
     public void createComment(Long cardId , User user, CommentRequestDto commentRequestDto) {
-//        Card card = cardRepository.findById(cardId).orElseThrow();
-
+        Card card = cardService.findCard(cardId);
         //받아온 user를 UserBoard에 있는지 조건문처리
+        Comment comment = new Comment(commentRequestDto,card);
+        card.addComments(comment);
 
-        Comment comment = new Comment(commentRequestDto);
-        comment.setUser(user);
-//        comment.setCard(card);
+        commentRepository.save(comment);
     }
 
     @Transactional
