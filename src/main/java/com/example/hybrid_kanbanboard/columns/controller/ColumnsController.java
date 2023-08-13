@@ -2,6 +2,7 @@ package com.example.hybrid_kanbanboard.columns.controller;
 
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsRequestDto;
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsResponseDto;
+import com.example.hybrid_kanbanboard.columns.dto.ColumnsReorderRequest;
 import com.example.hybrid_kanbanboard.columns.service.ColumnsService;
 import com.example.hybrid_kanbanboard.security.jwt.UserDetailsImpl;
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
@@ -44,4 +45,14 @@ public class ColumnsController {
     public ColumnsResponseDto updateColumn(@PathVariable Long ColumnId, @RequestParam Long BoardId, @RequestBody ColumnsRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return columnsService.updateColumn(ColumnId,BoardId,requestDto,userDetails.getUser());
     }
+
+
+    // 칼럼 이동
+    @PutMapping("/column/{columnId}/reorder")
+    public ResponseEntity<MsgResponseDto> reorder(@PathVariable Long columnId,
+                                                  @RequestBody ColumnsReorderRequest request) {
+        columnsService.reorder(columnId, request);
+        return ResponseEntity.ok().body(new MsgResponseDto("컬럼 순서 재정렬", HttpStatus.OK.value()));
+    }
+
 }

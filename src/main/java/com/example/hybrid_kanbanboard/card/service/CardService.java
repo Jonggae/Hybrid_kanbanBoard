@@ -3,12 +3,16 @@ package com.example.hybrid_kanbanboard.card.service;
 import com.example.hybrid_kanbanboard.card.dto.*;
 import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.card.repository.CardRepository;
+import com.example.hybrid_kanbanboard.cardUser.entity.CardUser;
+import com.example.hybrid_kanbanboard.cardUser.repository.CardUserRepository;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.columns.service.ColumnsService;
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
 import com.example.hybrid_kanbanboard.upload.sevice.S3UploadService;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.user.entity.User;
+import com.example.hybrid_kanbanboard.user.repository.UserRepository;
+import com.example.hybrid_kanbanboard.user.service.UserService;
 import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +30,9 @@ public class CardService {
     private final CardRepository cardRepository;
     private final S3UploadService s3UploadService;
     private final ColumnsService columnsService;
-
+    private final CardUserRepository cardUserRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
 
 
@@ -88,14 +94,6 @@ public class CardService {
     }
 
 
-    public Card findCard(Long id) {
-        return cardRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
-        );
-    }
-
-
-
     // 카드 이동
     public void reorderCard(Long cardId, Long columnsId, CardReorderRequestDto reorderRequestDto) {
         Card card = findCard(cardId);
@@ -130,5 +128,34 @@ public class CardService {
             cardRepository.save(card);
         }
     }
+
+
+    @Transactional
+    public void addMember(String userName, Long cardId) {
+        User user = findUserName(userName);
+        Card card = findCard(cardId);
+        CardUser cardUser = cardUserRepository.findByUserAndCard(user, card).orElse(null);
+
+        if (cardUser == null) {
+            cardUser = new CardUser(user, card);
+            cardUserRepository.save(cardUser);
+        } else {
+            cardUser.cancel();
+            cardUserRepository.delete(cardUser);
+        }
+    }
+
+
+
+
+    public Card findCard(Long id) {
+        return cardRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
+        );
+    }
+    public User findUserName(String userName) {
+        return cardRepository.findByUser_userName(userName);
+    }
+
 
 }

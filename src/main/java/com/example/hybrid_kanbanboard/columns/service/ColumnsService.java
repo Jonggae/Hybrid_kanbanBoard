@@ -4,6 +4,7 @@ import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.board.service.BoardService;
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsRequestDto;
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsResponseDto;
+import com.example.hybrid_kanbanboard.columns.dto.ColumnsReorderRequest;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.columns.repository.ColumnsRepository;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
@@ -72,9 +73,30 @@ public class ColumnsService {
 
     }
 
+    // 칼럼 이동
+    public void reorder(Long columnId, ColumnsReorderRequest request) {
+        Columns columns = findColumns(columnId);
+
+        Long oldPosition = columns.getColumnPosition();
+        Long newPosition = request.getColumnPosition();
+
+        if (newPosition > oldPosition) {
+            columnsRepository.decrementAboveToPosition(newPosition, oldPosition);
+        } else {
+            columnsRepository.incrementBelowToPosition(newPosition, oldPosition);
+        }
+
+        columns.setColumnPosition(request.getColumnPosition());
+        columnsRepository.save(columns);
+    }
+
+
     // 칼럼 검색
     public Columns findColumns(Long ColumnsId) {
         return columnsRepository.findById(ColumnsId).orElseThrow(() ->
                 new IllegalArgumentException("해당 칼럼이 존재하지 않습니다."));
     }
+
+
+
 }
