@@ -154,7 +154,7 @@ public class CardService {
         );
     }
     public User findUserName(String userName) {
-        return cardRepository.findByUsername(userName);
+        return cardRepository.findByUser_userName(userName);
     }
 
 

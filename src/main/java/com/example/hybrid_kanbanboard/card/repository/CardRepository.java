@@ -38,7 +38,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Query("UPDATE Card SET position = position + 1 WHERE position <= :position AND Columns = :columns")
     void incrementBelow(@Param("position") Long position, @Param("columns") Columns columns);
 
-
-    User findByUsername(String userName);
+    User findByUser_userName(String userName);
 
 }
