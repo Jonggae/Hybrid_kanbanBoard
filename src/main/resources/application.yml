@@ -13,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    password: 'Rhqnr9563**'
+    password: 'qkr4236059!'
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     url: jdbc:mysql://localhost:3306/hybrid

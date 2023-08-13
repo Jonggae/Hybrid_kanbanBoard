@@ -5,6 +5,7 @@ import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.card.repository.CardRepository;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.columns.service.ColumnsService;
+import com.example.hybrid_kanbanboard.notification.utility.NewCardMovedEvent;
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
 import com.example.hybrid_kanbanboard.upload.sevice.S3UploadService;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
@@ -12,6 +13,7 @@ import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,9 +28,7 @@ public class CardService {
     private final CardRepository cardRepository;
     private final S3UploadService s3UploadService;
     private final ColumnsService columnsService;
-
-
-
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public void createCard(CardRequestDto requestDto, User user, MultipartFile multipartFile,Long columnId) throws IOException {
@@ -94,8 +94,6 @@ public class CardService {
         );
     }
 
-
-
     // 카드 이동
     public void reorderCard(Long cardId, Long columnsId, CardReorderRequestDto reorderRequestDto) {
         Card card = findCard(cardId);
@@ -128,7 +126,9 @@ public class CardService {
             card.setColumns(requestcolumns);
 
             cardRepository.save(card);
+
+            // 이 부분에 이벤트 발행 코드 추가
+            eventPublisher.publishEvent(new NewCardMovedEvent(this, card, columns, requestcolumns));
         }
     }
-
 }

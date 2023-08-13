@@ -4,11 +4,14 @@ import com.example.hybrid_kanbanboard.board.dto.BoardRequestDto;
 import com.example.hybrid_kanbanboard.board.dto.BoardResponseDto;
 import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.board.repository.BoardRepository;
+import com.example.hybrid_kanbanboard.notification.utility.NewMemberAddedEvent;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import com.example.hybrid_kanbanboard.userBoard.UserBoard;
 import com.example.hybrid_kanbanboard.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,11 +96,21 @@ public class BoardService {
         }
         UserBoard userBoard = userBoardRepository.save(new UserBoard(collaborator,board));
         board.getUserBoards().add(userBoard);
-
+        addBoardMember(board, collaborator);
     }
 
     public UserBoard findCollaborator(Long userId) {
         return userBoardRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 board에 존재하지 않는 사용자입니다."));
+    }
+
+    // 알림 기능
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    public void addBoardMember(Board board, User newMember) {
+        board.getUserBoards().add(new UserBoard(newMember, board));
+        eventPublisher.publishEvent(new NewMemberAddedEvent(newMember, board));
     }
 }

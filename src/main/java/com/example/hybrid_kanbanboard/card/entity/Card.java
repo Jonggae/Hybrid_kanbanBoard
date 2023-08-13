@@ -4,6 +4,7 @@ import com.example.hybrid_kanbanboard.card.dto.*;
 import com.example.hybrid_kanbanboard.check.entity.Check;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.comment.entity.Comment;
+import com.example.hybrid_kanbanboard.notification.utility.NotificationEntityListener;
 import com.example.hybrid_kanbanboard.user.entity.TimeStamped;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table
+@EntityListeners(NotificationEntityListener.class)
 public class Card extends TimeStamped {
 
     @Id
@@ -40,7 +42,6 @@ public class Card extends TimeStamped {
     @Column
     private LocalDateTime dueDate;
 
-    // 수정해야댐~~~
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

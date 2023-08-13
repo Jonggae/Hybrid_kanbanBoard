@@ -1,9 +1,11 @@
 package com.example.hybrid_kanbanboard.user.entity;
 
 import com.example.hybrid_kanbanboard.board.entity.Board;
+import com.example.hybrid_kanbanboard.notification.entity.Notification;
 import com.example.hybrid_kanbanboard.user.dto.ProfileUpdateDto;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.userBoard.UserBoard;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Entity
 @Setter
+@Entity
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Notification> notifications;
 
     @Column(nullable = false, unique = true)
     private String userName;

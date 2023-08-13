@@ -2,6 +2,7 @@ package com.example.hybrid_kanbanboard.comment.entity;
 
 import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.comment.dto.CommentRequestDto;
+import com.example.hybrid_kanbanboard.notification.utility.NotificationEntityListener;
 import com.example.hybrid_kanbanboard.user.entity.TimeStamped;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(NotificationEntityListener.class)
 public class Comment extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
