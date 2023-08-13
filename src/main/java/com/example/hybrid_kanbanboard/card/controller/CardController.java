@@ -92,4 +92,13 @@ public class CardController {
         cardService.reorderCard(cardId, columnsId, reorderRequestDto);
         return ResponseEntity.ok().build();
     }
+
+
+    // 작업자 할당
+    @PostMapping("/cards/{cardId}/addMember")
+    public ResponseEntity<MsgResponseDto> addMember(@RequestParam String userName,
+                                                    @PathVariable Long cardId) {
+        cardService.addMember(userName, cardId);
+        return ResponseEntity.ok().body(new MsgResponseDto("작업자 할당/취소 성공", HttpStatus.OK.value()));
+    }
 }

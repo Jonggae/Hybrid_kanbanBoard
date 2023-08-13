@@ -2,11 +2,14 @@ package com.example.hybrid_kanbanboard.card.repository;
 
 import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
+import com.example.hybrid_kanbanboard.user.entity.User;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
     Long countCardsByColumns(Columns columns);
@@ -34,4 +37,8 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Modifying
     @Query("UPDATE Card SET position = position + 1 WHERE position <= :position AND Columns = :columns")
     void incrementBelow(@Param("position") Long position, @Param("columns") Columns columns);
+
+
+    User findByUsername(String userName);
+
 }

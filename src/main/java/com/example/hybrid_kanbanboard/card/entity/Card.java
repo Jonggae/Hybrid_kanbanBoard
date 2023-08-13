@@ -1,6 +1,7 @@
 package com.example.hybrid_kanbanboard.card.entity;
 
 import com.example.hybrid_kanbanboard.card.dto.*;
+import com.example.hybrid_kanbanboard.cardUser.entity.CardUser;
 import com.example.hybrid_kanbanboard.check.entity.Check;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.comment.entity.Comment;
@@ -12,13 +13,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table
 public class Card extends TimeStamped {
 
     @Id
@@ -53,6 +54,9 @@ public class Card extends TimeStamped {
 
     @OneToMany(mappedBy = "card")
     private List<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.ALL)
+    private List<CardUser> cardUsers = new ArrayList<>();
 
     public Card(CardRequestDto requestDto,User user) {
         this.user = user;
