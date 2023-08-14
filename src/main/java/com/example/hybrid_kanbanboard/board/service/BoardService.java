@@ -94,14 +94,14 @@ public class BoardService {
         if (board.getUserBoards().stream().anyMatch(boardUser -> boardUser.getCollaborator().equals(collaborator))) {
             throw new IllegalArgumentException("이미 등록된 멤버입니다");
         }
-        UserBoard userBoard = userBoardRepository.save(new UserBoard(collaborator,board));
+        UserBoard userBoard = userBoardRepository.save(new UserBoard(collaborator, board));
         board.getUserBoards().add(userBoard);
         addBoardMember(board, collaborator);
     }
 
     public UserBoard findCollaborator(Long userId) {
         return userBoardRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 board에 존재하지 않는 사용자입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 board 에 존재하지 않는 사용자입니다."));
     }
 
     // 알림 기능

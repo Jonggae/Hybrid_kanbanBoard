@@ -2,7 +2,6 @@ package com.example.hybrid_kanbanboard.check.dto;
 
 import com.example.hybrid_kanbanboard.check.entity.Check;
 import com.example.hybrid_kanbanboard.checkList.dto.CheckListResponseDto;
-import com.example.hybrid_kanbanboard.checkList.entity.CheckList;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

@@ -24,13 +24,14 @@ public class Comment extends TimeStamped {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "cardId")
+    @JoinColumn(name = "card_id")
     private Card card;
-    public Comment(CommentRequestDto commentRequestDto,Card card) {
+
+    public Comment(CommentRequestDto commentRequestDto, Card card) {
         this.text = commentRequestDto.getText();
         this.card = card;
     }

@@ -26,7 +26,7 @@ public class Columns {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ColumnId; // 칼럼 식별 번호
 
-    @jakarta.persistence.Column(name ="name", nullable = false)
+    @jakarta.persistence.Column(name = "name", nullable = false)
     private String columnName; // 칼럼의 이름
 
     @jakarta.persistence.Column(name = "position", nullable = false)
@@ -37,14 +37,14 @@ public class Columns {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "boardNumber")
+    @JoinColumn(name = "boardNumber")
     private Board board;
 
     @OneToMany(mappedBy = "columns")
     private List<Card> cards = new ArrayList<>();
 
     public Columns(ColumnsRequestDto requestDto, User user, Board board) {
-        this.columnName =requestDto.getColumnName();
+        this.columnName = requestDto.getColumnName();
         this.columnPosition = requestDto.getColumnPosition();
         this.user = user;
         this.board = board;

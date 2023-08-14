@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CheckRepository extends JpaRepository<Check,Long> {
-
+public interface CheckRepository extends JpaRepository<Check, Long> {
     List<Check> findAllByOrderByModifiedAtDesc();
 }

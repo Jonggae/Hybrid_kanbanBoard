@@ -15,7 +15,7 @@ public class RedisUtil {
 
     private final StringRedisTemplate redisTemplate;
 
-    public String getData(String key) { // key를 통해 value(데이터)를 얻는다.
+    public String getData(String key) { // key 를 통해 value(데이터)를 얻는다.
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         log.info("key : " + key);
         return valueOperations.get(key);
@@ -31,7 +31,7 @@ public class RedisUtil {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         Duration expireDuration = Duration.ofSeconds(duration);
 
-        // 인증 코드 값을 value에 저장
+        // 인증 코드 값을 value 에 저장
         valueOperations.set(key, value, expireDuration);
     }
 
@@ -45,12 +45,12 @@ public class RedisUtil {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         Duration expireDuration = Duration.ofSeconds(duration);
 
-        // 인증 코드 값을 value에 저장
+        // 인증 코드 값을 value 에 저장
         valueOperations.set(key, value, expireDuration);
     }
 
-    // redis에서 getEmail을 꺼내서 사용
-    public String getEmail(String key) { // key를 통해 value(데이터)를 얻는다.
+    // redis 에서 getEmail 을 꺼내서 사용
+    public String getEmail(String key) { // key 를 통해 value(데이터)를 얻는다.
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         log.info("key : " + key);
         return valueOperations.get(key);

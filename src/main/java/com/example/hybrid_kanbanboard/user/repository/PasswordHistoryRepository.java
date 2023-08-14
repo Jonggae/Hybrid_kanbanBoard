@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PasswordHistoryRepository extends JpaRepository<PasswordHistory, Long> {
     List<PasswordHistory> findTop4ByUserOrderByCreatedAtDesc(User user);
-    // PasswordHistory를 List로 불러오고 findTop3ByUserOrderByCreatedAtDesc 메서드를 실행
+    // PasswordHistory 를 List 로 불러오고 findTop3ByUserOrderByCreatedAtDesc 메서드를 실행
 }

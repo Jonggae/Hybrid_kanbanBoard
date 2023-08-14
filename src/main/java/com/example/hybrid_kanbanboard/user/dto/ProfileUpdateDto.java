@@ -18,7 +18,7 @@ public class ProfileUpdateDto {
     public ProfileUpdateDto(User user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
-        this.nickname= user.getNickname();
+        this.nickname = user.getNickname();
         this.myContent = user.getMyContent();
     }
 }

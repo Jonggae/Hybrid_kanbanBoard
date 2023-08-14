@@ -4,13 +4,14 @@ import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.comment.entity.Comment;
-import com.example.hybrid_kanbanboard.notification.repository.NotificationRepository;
 import com.example.hybrid_kanbanboard.notification.entity.Notification;
+import com.example.hybrid_kanbanboard.notification.repository.NotificationRepository;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
 import jakarta.persistence.PostUpdate;
 import org.springframework.context.event.EventListener;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

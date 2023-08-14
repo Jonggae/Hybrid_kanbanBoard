@@ -4,7 +4,6 @@ import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,13 +14,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "user_board")
 public class UserBoard {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "collaborator_id",nullable = false)
+    @JoinColumn(name = "collaborator_id", nullable = false)
     private User collaborator;
 
     @ManyToOne(fetch = FetchType.LAZY)

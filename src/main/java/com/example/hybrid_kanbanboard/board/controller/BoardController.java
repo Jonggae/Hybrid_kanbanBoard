@@ -98,7 +98,5 @@ public class BoardController {
 
         }
         return ResponseEntity.ok().body(new MsgResponseDto("멤버가 등록 되었습니다", HttpStatus.OK.value()));
-
     }
-
 }

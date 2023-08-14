@@ -2,14 +2,11 @@ package com.example.hybrid_kanbanboard.user.controller;
 
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
 import com.example.hybrid_kanbanboard.user.dto.EmailVerificationRequestDto;
-import com.example.hybrid_kanbanboard.user.service.EmailService;
 import com.example.hybrid_kanbanboard.user.service.EmailServiceImpl;
-import com.example.hybrid_kanbanboard.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -19,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class EmailController {
 
     private final EmailServiceImpl emailService;
-    // 인증 코드를 Email로 보내기
+
+    // 인증 코드를 Email 로 보내기
     @PostMapping("/email")
     public ResponseEntity<MsgResponseDto> sendEmail(@RequestParam("email") String emails) throws Exception {
         log.info("email: " + emails);

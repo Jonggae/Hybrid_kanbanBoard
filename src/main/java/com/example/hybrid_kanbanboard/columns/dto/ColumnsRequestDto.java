@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ColumnsRequestDto {
-
     private String columnName;
     private Long columnPosition;
 }

@@ -22,7 +22,7 @@ public class SignUpRequestDto {
     private String email;
 
     @NotBlank(message = "이름 또는 별명을 입력해주세요.")
-    @Size(min=2,max=8,message = "이름(별명)은 최소 2글자에서 최대 8글자로 설정 할 수 있습니다.")
+    @Size(min = 2, max = 8, message = "이름(별명)은 최소 2글자에서 최대 8글자로 설정 할 수 있습니다.")
     private String nickname;
 
     @NotBlank

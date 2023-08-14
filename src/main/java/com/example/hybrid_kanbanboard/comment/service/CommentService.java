@@ -22,10 +22,10 @@ public class CommentService {
     private final CardService cardService;
 
     @Transactional
-    public void createComment(Long cardId , User user, CommentRequestDto commentRequestDto) {
+    public void createComment(Long cardId, User user, CommentRequestDto commentRequestDto) {
         Card card = cardService.findCard(cardId);
-        //받아온 user를 UserBoard에 있는지 조건문처리
-        Comment comment = new Comment(commentRequestDto,card);
+        //받아온 user 를 UserBoard 에 있는지 조건문처리
+        Comment comment = new Comment(commentRequestDto, card);
         card.addComments(comment);
 
         commentRepository.save(comment);
@@ -48,16 +48,17 @@ public class CommentService {
     public void updateComment(Long commentId, User user, CommentRequestDto commentRequestDto) {
         Comment comment = findComment(commentId);
 
-        if(!comment.getUser().getUserName().equals(user.getUserName())) {
+        if (!comment.getUser().getUserName().equals(user.getUserName())) {
             //에외처리
         }
         comment.updateComment(commentRequestDto);
     }
+
     @Transactional
     public void deleteComment(Long commentId, User user) {
         Comment comment = findComment(commentId);
 
-        if(!comment.getUser().getUserName().equals(user.getUserName())) {
+        if (!comment.getUser().getUserName().equals(user.getUserName())) {
             //에외처리
         }
         commentRepository.delete(comment);

@@ -47,7 +47,7 @@ public class UserService {
             throw new IllegalArgumentException("중복된 Email 입니다.");
         }
 
-        // key에 맞는 value를 줌
+        // key 에 맞는 value 를 줌
         String verifiedEmail = redisUtil.getEmail("success");
         if (verifiedEmail == null) {
             throw new IllegalArgumentException("인증한 Email이 없습니다");
@@ -63,13 +63,13 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public UserResponseDto detailProfile (UserDetailsImpl userDetails) {
+    public UserResponseDto detailProfile(UserDetailsImpl userDetails) {
         UserResponseDto userResponseDto = new UserResponseDto(userDetails.getUser());
         return userResponseDto;
     }
 
     @Transactional
-    public ProfileUpdateDto updateProfile (ProfileUpdateDto profileUpdateDto, UserDetailsImpl userDetails) throws Exception {
+    public ProfileUpdateDto updateProfile(ProfileUpdateDto profileUpdateDto, UserDetailsImpl userDetails) throws Exception {
 
         System.out.println(profileUpdateDto.getPassword() + "               " + userDetails.getPassword());
 
@@ -82,12 +82,12 @@ public class UserService {
         List<PasswordHistory> passwordHistories = passwordHistoryRepository.findTop4ByUserOrderByCreatedAtDesc(userDetails.getUser());
         // 최근 3번 사용한 비밀번호 조회
 
-        for (int i = 0; i <passwordHistories.size(); i++) {
+        for (int i = 0; i < passwordHistories.size(); i++) {
             PasswordHistory passwordHistory = passwordHistories.get(i);
             // passwordHistories.get(i)를 통해 passwordHistories 리스트에서 i번째 인덱스에 위치한 PasswordHistory 객체를 가져옴
             if (passwordEncoder.matches(profileUpdateDto.getChangePassword(), passwordHistory.getPassword()))
                 throw new IllegalArgumentException("최근 3번 사용한 비밀번호는 사용할 수 없습니다.");
-            // passwordHistory.getUserPassword()(암호화) 된 비밀번호가 userDetails.getPassword()(사용자가 입력한 비밀번호)와 같다면 throw를 보냄
+            // passwordHistory.getUserPassword()(암호화) 된 비밀번호가 userDetails.getPassword()(사용자가 입력한 비밀번호)와 같다면 throw 를 보냄
         }
 
         // 최근 3번 사용한 비밀번호 제한하기
@@ -95,13 +95,13 @@ public class UserService {
         profileUpdateDto.setChangePassword(passwordEncoder.encode(profileUpdateDto.getChangePassword()));
         // 받아온 비밀번호 암호화 시켜줌
 
-        User targetUser = userRepository.findById(userDetails.getUser().getUserId()).orElseThrow(() -> new Exception ());
-        // targetUser는 User클래스의 객체이다
-        // userRepository에서 userId로 user를 한 개 찾아온다
-        // userId는 현재 로그인 한 Id를 찾아와야 함으로 userDetails를 실행시킨다
-        // 반환타입이 Optional이기 때문에 null 값에 대한 처리를 해주기 위해 orElseThrow(() -> new Exception ())으로 null 값인 경우 Exception을 던진다
+        User targetUser = userRepository.findById(userDetails.getUser().getUserId()).orElseThrow(() -> new Exception());
+        // targetUser 는 User 클래스의 객체이다
+        // userRepository 에서 userId로 user 를 한 개 찾아온다
+        // userId는 현재 로그인 한 Id를 찾아와야 함으로 userDetails 를 실행시킨다
+        // 반환타입이 Optional 이기 때문에 null 값에 대한 처리를 해주기 위해 orElseThrow(() -> new Exception ())으로 null 값인 경우 Exception 을 던진다
 
-        // DB에 있는 유저의 정보를 바꾸기 위해 User를 가져오고 userRepository 안에 id를 찾아와라
+        // DB에 있는 유저의 정보를 바꾸기 위해 User 를 가져오고 userRepository 안에 id를 찾아와라
 
         System.out.println(profileUpdateDto.getChangePassword());
 
@@ -111,6 +111,7 @@ public class UserService {
 
         return profileUpdateDto;
     }
+
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @NoArgsConstructor
-public class PasswordHistory extends TimeStamped{
+public class PasswordHistory extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long passwordId;
@@ -25,5 +25,5 @@ public class PasswordHistory extends TimeStamped{
         this.user = user;
         this.password = password;
     }
-     // PasswordHistory 엔티티 클래스는 유저의 비밀번호 변경 이력을 저장
+    // PasswordHistory 엔티티 클래스는 유저의 비밀번호 변경 이력을 저장
 }
