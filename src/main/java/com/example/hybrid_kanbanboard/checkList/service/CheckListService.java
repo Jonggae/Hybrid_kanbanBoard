@@ -1,7 +1,5 @@
 package com.example.hybrid_kanbanboard.checkList.service;
 
-import com.example.hybrid_kanbanboard.check.dto.CheckRequestDto;
-import com.example.hybrid_kanbanboard.check.dto.CheckResponseDto;
 import com.example.hybrid_kanbanboard.check.entity.Check;
 import com.example.hybrid_kanbanboard.check.repository.CheckRepository;
 import com.example.hybrid_kanbanboard.checkList.dto.CheckListRequestDto;
@@ -25,10 +23,10 @@ public class CheckListService {
     private final CheckRepository checkRepository;
 
     @Transactional
-    public void createCheckList(Long checkId , User user, CheckListRequestDto checkListRequestDto) {
+    public void createCheckList(Long checkId, User user, CheckListRequestDto checkListRequestDto) {
         Check check = checkRepository.findById(checkId).orElseThrow();
         // if() 보드에 추가된사람만 생성 할 수 있게 예외처리.
-        CheckList checkList = new CheckList(checkListRequestDto,user,check);
+        CheckList checkList = new CheckList(checkListRequestDto, user, check);
         check.addCheckList(checkList);
 
         checkListRepository.save(checkList);

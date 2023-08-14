@@ -1,7 +1,5 @@
 package com.example.hybrid_kanbanboard.checkList.controller;
 
-import com.example.hybrid_kanbanboard.check.dto.CheckResponseDtos;
-import com.example.hybrid_kanbanboard.check.dto.CheckRequestDto;
 import com.example.hybrid_kanbanboard.checkList.dto.CheckListRequestDto;
 import com.example.hybrid_kanbanboard.checkList.dto.CheckListResponseDto;
 import com.example.hybrid_kanbanboard.checkList.dto.CheckListResponseDtos;
@@ -12,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +19,10 @@ import org.springframework.web.bind.annotation.*;
 public class CheckListController {
 
     private final CheckListService checkListService;
+
     @PostMapping("/{checkId}")
-    public ResponseEntity<MsgResponseDto> createCheckList(@PathVariable Long checkId , @AuthenticationPrincipal UserDetailsImpl userDetails , @RequestBody CheckListRequestDto checkListRequestDto) {
-        checkListService.createCheckList(checkId,userDetails.getUser(), checkListRequestDto);
+    public ResponseEntity<MsgResponseDto> createCheckList(@PathVariable Long checkId, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CheckListRequestDto checkListRequestDto) {
+        checkListService.createCheckList(checkId, userDetails.getUser(), checkListRequestDto);
         return ResponseEntity.ok().body(new MsgResponseDto("체크리스트 생성 성공 !", HttpStatus.OK.value()));
     }
 
@@ -41,14 +39,14 @@ public class CheckListController {
     }
 
     @PutMapping("/{checkListId}")
-    public ResponseEntity<MsgResponseDto> updateCheckList(@PathVariable Long checkListId , @AuthenticationPrincipal UserDetailsImpl userDetails , @RequestBody CheckListRequestDto checkListRequestDto) {
-        checkListService.updateCheckList(checkListId,userDetails.getUser(), checkListRequestDto);
+    public ResponseEntity<MsgResponseDto> updateCheckList(@PathVariable Long checkListId, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CheckListRequestDto checkListRequestDto) {
+        checkListService.updateCheckList(checkListId, userDetails.getUser(), checkListRequestDto);
         return ResponseEntity.ok().body(new MsgResponseDto("체크리스트 수정 성공 !", HttpStatus.OK.value()));
     }
 
     @DeleteMapping("/{checkListId}")
-    public ResponseEntity<MsgResponseDto> deleteComment(@PathVariable Long checkListId , @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        checkListService.deleteCheckList(checkListId,userDetails.getUser());
+    public ResponseEntity<MsgResponseDto> deleteComment(@PathVariable Long checkListId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        checkListService.deleteCheckList(checkListId, userDetails.getUser());
         return ResponseEntity.ok().body(new MsgResponseDto("체크리스트 삭제 성공 !", HttpStatus.OK.value()));
     }
 

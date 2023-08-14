@@ -20,14 +20,14 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{cardId}")
-    public ResponseEntity<MsgResponseDto> createComment(@PathVariable Long cardId , @AuthenticationPrincipal UserDetailsImpl userDetails , @RequestBody CommentRequestDto commentRequestDto) {
-        commentService.createComment(cardId,userDetails.getUser(),commentRequestDto);
+    public ResponseEntity<MsgResponseDto> createComment(@PathVariable Long cardId, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CommentRequestDto commentRequestDto) {
+        commentService.createComment(cardId, userDetails.getUser(), commentRequestDto);
         return ResponseEntity.ok().body(new MsgResponseDto("댓글 생성 성공 !", HttpStatus.OK.value()));
     }
 
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> getComment(@PathVariable Long commentId) {
-        CommentResponseDto commentResponseDto=commentService.getComment(commentId);
+        CommentResponseDto commentResponseDto = commentService.getComment(commentId);
         return ResponseEntity.ok().body(commentResponseDto);
     }
 
@@ -38,14 +38,14 @@ public class CommentController {
     }
 
     @PutMapping("/{commentId}")
-    public ResponseEntity<MsgResponseDto> updateComment(@PathVariable Long commentId , @AuthenticationPrincipal UserDetailsImpl userDetails , @RequestBody CommentRequestDto commentRequestDto) {
-        commentService.updateComment(commentId,userDetails.getUser(),commentRequestDto);
+    public ResponseEntity<MsgResponseDto> updateComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CommentRequestDto commentRequestDto) {
+        commentService.updateComment(commentId, userDetails.getUser(), commentRequestDto);
         return ResponseEntity.ok().body(new MsgResponseDto("댓글 수정 성공 !", HttpStatus.OK.value()));
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<MsgResponseDto> deleteComment(@PathVariable Long commentId , @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        commentService.deleteComment(commentId,userDetails.getUser());
+    public ResponseEntity<MsgResponseDto> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        commentService.deleteComment(commentId, userDetails.getUser());
         return ResponseEntity.ok().body(new MsgResponseDto("댓글 삭제 성공 !", HttpStatus.OK.value()));
     }
 }

@@ -10,8 +10,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ public class Board {
     @Column(nullable = false, unique = true)
     private String boardName; // board 이름
 
-    // N대 1 : User클래스의 boardMaker(1)가 여러개의 board(N)를 만들 수 있으므로..
+    // N대 1 : User 클래스의 boardMaker(1)가 여러개의 board(N)를 만들 수 있으므로..
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardMaker")
     private User user;

@@ -23,8 +23,8 @@ public class RedisConfig {// redis 사용을 위한 기본 configuration
     }
 
     @Bean // RedisConnection을 통해 넘어온 byte 값을 객체 직렬화 해줌 (Serialization)
-    public RedisTemplate<?, ?> redisTemplate(){
-        RedisTemplate<byte[],byte[]> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<?, ?> redisTemplate() {
+        RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         return redisTemplate;
     }

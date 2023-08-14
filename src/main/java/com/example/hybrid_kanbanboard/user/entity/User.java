@@ -1,8 +1,7 @@
 package com.example.hybrid_kanbanboard.user.entity;
 
-import com.example.hybrid_kanbanboard.board.entity.Board;
-import com.example.hybrid_kanbanboard.notification.entity.Notification;
 import com.example.hybrid_kanbanboard.cardUser.entity.CardUser;
+import com.example.hybrid_kanbanboard.notification.entity.Notification;
 import com.example.hybrid_kanbanboard.user.dto.ProfileUpdateDto;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.userBoard.UserBoard;

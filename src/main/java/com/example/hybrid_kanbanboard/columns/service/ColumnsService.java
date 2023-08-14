@@ -2,9 +2,9 @@ package com.example.hybrid_kanbanboard.columns.service;
 
 import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.board.service.BoardService;
+import com.example.hybrid_kanbanboard.columns.dto.ColumnsReorderRequest;
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsRequestDto;
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsResponseDto;
-import com.example.hybrid_kanbanboard.columns.dto.ColumnsReorderRequest;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.columns.repository.ColumnsRepository;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
@@ -62,7 +62,7 @@ public class ColumnsService {
         Board board = boardService.findBoard(BoardId);
         Columns column = findColumns(ColumnId);
 
-        if (username.equals(user.getUserName())|| user.getRole().toString().equals("ADMIN")) {
+        if (username.equals(user.getUserName()) || user.getRole().toString().equals("ADMIN")) {
             List<Columns> columnList = board.getColumnList();
             column.update(requestDto);
             return new ColumnsResponseDto(column);
@@ -96,7 +96,4 @@ public class ColumnsService {
         return columnsRepository.findById(ColumnsId).orElseThrow(() ->
                 new IllegalArgumentException("해당 칼럼이 존재하지 않습니다."));
     }
-
-
-
 }

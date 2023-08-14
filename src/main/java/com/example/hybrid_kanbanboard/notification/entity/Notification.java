@@ -2,8 +2,8 @@ package com.example.hybrid_kanbanboard.notification.entity;
 
 import com.example.hybrid_kanbanboard.user.entity.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -77,6 +77,6 @@ public class Notification {
     }
 
     public void setRead(boolean read) {
-        this.isRead= read;
+        this.isRead = read;
     }
 }

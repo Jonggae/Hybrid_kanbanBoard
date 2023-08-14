@@ -82,7 +82,7 @@ public class WebSecurityConfig {
                 .version("v1.0.0")
                 .title("API 타이틀")
                 .description("API Description");
-        // SecuritySecheme명
+        // SecuritySecheme 명
         String jwtSchemeName = "jwtAuth";
         // API 요청헤더에 인증정보 포함
         SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
