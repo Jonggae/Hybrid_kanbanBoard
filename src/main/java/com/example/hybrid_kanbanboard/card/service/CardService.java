@@ -133,7 +133,7 @@ public class CardService {
 
     @Transactional
     public void addMember(String userName, Long cardId) {
-        User user = findUserName(userName);
+        User user = findUser_userName(userName);
         Card card = findCard(cardId);
         CardUser cardUser = cardUserRepository.findByUserAndCard(user, card).orElse(null);
 
@@ -153,7 +153,7 @@ public class CardService {
         );
     }
 
-    public User findUserName(String userName) {
-        return cardRepository.findByUser_userName(userName);
+    public User findUser_userName(String userName) {
+        return userRepository.findByUserName(userName).orElseThrow();
     }
 }
