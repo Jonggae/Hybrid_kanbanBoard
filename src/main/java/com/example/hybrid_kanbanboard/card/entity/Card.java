@@ -53,10 +53,10 @@ public class Card extends TimeStamped {
     @JoinColumn(name = "column_id")
     private Columns columns;
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.ALL)
     private List<Check> checkList;
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.ALL)

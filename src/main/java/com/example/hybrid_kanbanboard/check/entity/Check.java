@@ -34,7 +34,7 @@ public class Check extends TimeStamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "check")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "check", cascade = CascadeType.ALL)
     private List<CheckList> checkLists = new ArrayList<>();
 
 
