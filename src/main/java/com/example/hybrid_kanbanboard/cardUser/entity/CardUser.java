@@ -1,7 +1,6 @@
 package com.example.hybrid_kanbanboard.cardUser.entity;
 
 import com.example.hybrid_kanbanboard.card.entity.Card;
-import com.example.hybrid_kanbanboard.cardUser.dto.CardUserResponseDto;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
