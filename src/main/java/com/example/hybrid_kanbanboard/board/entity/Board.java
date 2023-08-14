@@ -2,6 +2,7 @@ package com.example.hybrid_kanbanboard.board.entity;
 
 import com.example.hybrid_kanbanboard.board.dto.BoardRequestDto;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
+import com.example.hybrid_kanbanboard.notification.utility.NotificationEntityListener;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import com.example.hybrid_kanbanboard.userBoard.UserBoard;
@@ -9,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(NotificationEntityListener.class)
 public class Board {
 
     @Id
@@ -65,5 +69,15 @@ public class Board {
     public void addColumnList(Columns column) {
         this.columnList.add(column);
         column.setBoard(this);
+    }
+
+    // 알림 기능
+
+    public List<User> getBoardMembers() {
+        List<User> users = new ArrayList<>();
+        for (UserBoard userBoard : userBoards) {
+            users.add(userBoard.getBoard().getUser());
+        }
+        return users;
     }
 }

@@ -3,6 +3,7 @@ package com.example.hybrid_kanbanboard.columns.entity;
 import com.example.hybrid_kanbanboard.board.entity.Board;
 import com.example.hybrid_kanbanboard.card.entity.Card;
 import com.example.hybrid_kanbanboard.columns.dto.ColumnsRequestDto;
+import com.example.hybrid_kanbanboard.notification.utility.NotificationEntityListener;
 import com.example.hybrid_kanbanboard.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.util.List;
 @Setter
 @Table(name = "columns")
 @NoArgsConstructor
+@EntityListeners(NotificationEntityListener.class)
 
 public class Columns {
 

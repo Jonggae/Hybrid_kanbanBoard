@@ -7,6 +7,7 @@ import com.example.hybrid_kanbanboard.cardUser.entity.CardUser;
 import com.example.hybrid_kanbanboard.cardUser.repository.CardUserRepository;
 import com.example.hybrid_kanbanboard.columns.entity.Columns;
 import com.example.hybrid_kanbanboard.columns.service.ColumnsService;
+import com.example.hybrid_kanbanboard.notification.utility.NewCardMovedEvent;
 import com.example.hybrid_kanbanboard.status.MsgResponseDto;
 import com.example.hybrid_kanbanboard.upload.sevice.S3UploadService;
 import com.example.hybrid_kanbanboard.user.dto.UserRoleEnum;
@@ -16,6 +17,7 @@ import com.example.hybrid_kanbanboard.user.service.UserService;
 import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,11 +32,10 @@ public class CardService {
     private final CardRepository cardRepository;
     private final S3UploadService s3UploadService;
     private final ColumnsService columnsService;
+    private final ApplicationEventPublisher eventPublisher;
     private final CardUserRepository cardUserRepository;
     private final UserRepository userRepository;
     private final UserService userService;
-
-
 
     @Transactional
     public void createCard(CardRequestDto requestDto, User user, MultipartFile multipartFile,Long columnId) throws IOException {
@@ -93,6 +94,11 @@ public class CardService {
         card.updateDueDate(requestDto);
     }
 
+    public Card findCard(Long id) {
+        return cardRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
+        );
+    }
 
     // 카드 이동
     public void reorderCard(Long cardId, Long columnsId, CardReorderRequestDto reorderRequestDto) {
@@ -126,9 +132,11 @@ public class CardService {
             card.setColumns(requestcolumns);
 
             cardRepository.save(card);
+
+            // 이 부분에 이벤트 발행 코드 추가
+            eventPublisher.publishEvent(new NewCardMovedEvent(this, card, columns, requestcolumns));
         }
     }
-
 
     @Transactional
     public void addMember(String userName, Long cardId) {
@@ -144,9 +152,6 @@ public class CardService {
             cardUserRepository.delete(cardUser);
         }
     }
-
-
-
 
     public Card findCard(Long id) {
         return cardRepository.findById(id).orElseThrow(() ->
