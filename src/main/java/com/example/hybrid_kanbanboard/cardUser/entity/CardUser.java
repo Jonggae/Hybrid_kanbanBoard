@@ -19,11 +19,11 @@ public class CardUser {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "cardId")
+    @JoinColumn(name = "card_id")
     private Card card;
 
 

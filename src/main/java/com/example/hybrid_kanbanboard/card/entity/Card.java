@@ -44,7 +44,6 @@ public class Card extends TimeStamped {
     @Column
     private LocalDateTime dueDate;
 
-    // 수정해야댐~~~
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -62,14 +61,13 @@ public class Card extends TimeStamped {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.ALL)
     private List<CardUser> cardUsers = new ArrayList<>();
 
-    public Card(CardRequestDto requestDto,User user) {
+    public Card(CardRequestDto requestDto, User user) {
         this.user = user;
         this.name = requestDto.getName();
         this.description = requestDto.getDescription();
         this.color = requestDto.getColor();
         this.position = requestDto.getPosition();
         this.dueDate = requestDto.getDueDate();
-
     }
 
 

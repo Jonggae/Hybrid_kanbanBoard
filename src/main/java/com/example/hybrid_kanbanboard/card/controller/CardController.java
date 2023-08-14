@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.concurrent.RejectedExecutionException;
 
 @RestController
-@RequestMapping("/api/card")
+@RequestMapping("/api/cards")
 @RequiredArgsConstructor
 public class CardController {
 
@@ -32,7 +32,7 @@ public class CardController {
 
 
     // 카드 이름 수정
-    @PutMapping("cards/{cardId}/name")
+    @PutMapping("/{cardId}/name")
     public ResponseEntity<MsgResponseDto> updateName(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                      @PathVariable Long cardId,
                                                      @RequestBody NameRequestDto requestDto) {
@@ -43,7 +43,7 @@ public class CardController {
     }
 
     // 카드 설명 수정
-    @PutMapping("cards/{cardId}/description")
+    @PutMapping("/{cardId}/description")
     public ResponseEntity<MsgResponseDto> updateDescription(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                             @PathVariable Long cardId,
                                                             @RequestBody DescriptionRequestDto requestDto) {
@@ -52,7 +52,7 @@ public class CardController {
         return ResponseEntity.ok().body(new MsgResponseDto("카드 설명 수정 성공!", HttpStatus.OK.value()));
     }
     // 카드 색상 수정
-    @PutMapping("cards/{cardId}/color")
+    @PutMapping("/{cardId}/color")
     public ResponseEntity<MsgResponseDto> updateColor(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                       @PathVariable Long cardId,
                                                       @RequestBody ColorRequestDto requestDto) {
@@ -61,7 +61,7 @@ public class CardController {
         return ResponseEntity.ok().body(new MsgResponseDto("카드 색상 수정 성공!", HttpStatus.OK.value()));
     }
     // 카드 만기일 수정
-    @PutMapping("cards/{cardId}/due")
+    @PutMapping("/{cardId}/due")
     public ResponseEntity<MsgResponseDto> updateDueDate(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                         @PathVariable Long cardId,
                                                         @RequestBody DueDateRequestDto requestDto) {
@@ -72,7 +72,7 @@ public class CardController {
     }
 
 
-    @DeleteMapping("/card/{cardId}")
+    @DeleteMapping("/{cardId}")
     public ResponseEntity<MsgResponseDto> deleteCard(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                      @PathVariable Long cardId) {
         try {
@@ -85,7 +85,7 @@ public class CardController {
 
 
     // 카드 이동
-    @PutMapping("/cards/{cardId}/reorder")
+    @PutMapping("/{cardId}/reorder")
     public ResponseEntity<Void> reorderCard(@PathVariable Long cardId,
                                             @RequestParam(required = false) Long columnsId,
                                             @RequestBody CardReorderRequestDto reorderRequestDto) {
@@ -95,7 +95,7 @@ public class CardController {
 
 
     // 작업자 할당
-    @PostMapping("/cards/{cardId}/addMember")
+    @PostMapping("/{cardId}/addMember")
     public ResponseEntity<MsgResponseDto> addMember(@RequestParam String userName,
                                                     @PathVariable Long cardId) {
         cardService.addMember(userName, cardId);

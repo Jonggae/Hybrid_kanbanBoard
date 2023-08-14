@@ -39,5 +39,4 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     void incrementBelow(@Param("position") Long position, @Param("columns") Columns columns);
 
     User findByUser_userName(String userName);
-
 }

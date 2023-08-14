@@ -38,11 +38,11 @@ public class CardService {
     private final UserService userService;
 
     @Transactional
-    public void createCard(CardRequestDto requestDto, User user, MultipartFile multipartFile,Long columnId) throws IOException {
+    public void createCard(CardRequestDto requestDto, User user, MultipartFile multipartFile, Long columnId) throws IOException {
         Columns columns = columnsService.findColumns(columnId);
 
         s3UploadService.saveFile(multipartFile);
-        log.info("이름 : {} , 나이 : {} , 이미지 : {}",requestDto.getName(),requestDto.getDescription(),multipartFile);
+        log.info("이름 : {} , 나이 : {} , 이미지 : {}", requestDto.getName(), requestDto.getDescription(), multipartFile);
 
         Card card = new Card(requestDto, user);
         columns.addCards(card);
@@ -94,11 +94,6 @@ public class CardService {
         card.updateDueDate(requestDto);
     }
 
-    public Card findCard(Long id) {
-        return cardRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
-        );
-    }
 
     // 카드 이동
     public void reorderCard(Long cardId, Long columnsId, CardReorderRequestDto reorderRequestDto) {
@@ -154,9 +149,13 @@ public class CardService {
     }
 
 
+    public Card findCard(Long id) {
+        return cardRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
+        );
+    }
+
     public User findUserName(String userName) {
         return cardRepository.findByUser_userName(userName);
     }
-
-
 }
