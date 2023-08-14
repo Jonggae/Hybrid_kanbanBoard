@@ -25,7 +25,7 @@ public class CommentService {
     public void createComment(Long cardId, User user, CommentRequestDto commentRequestDto) {
         Card card = cardService.findCard(cardId);
         //받아온 user 를 UserBoard 에 있는지 조건문처리
-        Comment comment = new Comment(commentRequestDto, card);
+        Comment comment = new Comment(commentRequestDto, card, user);
         card.addComments(comment);
 
         commentRepository.save(comment);
@@ -48,7 +48,7 @@ public class CommentService {
     public void updateComment(Long commentId, User user, CommentRequestDto commentRequestDto) {
         Comment comment = findComment(commentId);
 
-        if (!comment.getUser().getUserName().equals(user.getUserName())) {
+        if (!comment.getUser().getUserId().equals(user.getUserId())) {
             //에외처리
         }
         comment.updateComment(commentRequestDto);
